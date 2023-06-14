@@ -242,8 +242,18 @@ const PropertyLocationCoords = ({getCoordinates, setGetCoordinates, name}) => {
             provider={PROVIDER_GOOGLE}
             style={styles1.map}
             initialRegion={{
-              latitude: getCoordinates?.latitude || 37.78825,
-              longitude: getCoordinates?.longitude || -122.4324,
+              latitude:
+                getCoordinates?.latitude ||
+                !location ||
+                location === 'notGranted'
+                  ? 30.744958966516066
+                  : location?.coords.latitude,
+              longitude:
+                getCoordinates?.longitude ||
+                !location ||
+                location === 'notGranted'
+                  ? 76.81056978447793
+                  : location?.coords.longitude,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}

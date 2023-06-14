@@ -44,8 +44,8 @@ const ChatDetailScreen = ({route}) => {
 
   useEffect(() => {
     setTimeout(() => {
-      scrollViewRef?.current?.scrollToEnd({animated: false});
-    }, 200);
+      scrollViewRef?.current?.scrollToEnd({animated: true});
+    }, 1000);
   }, []);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const ChatDetailScreen = ({route}) => {
       );
     };
 
-    getMessagesData();
+    navigation.addListener('focus', () => getMessagesData());
   }, [item._id, item.conversation, dispatch, auth]);
 
   const handleMessage = () => {

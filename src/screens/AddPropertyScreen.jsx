@@ -101,8 +101,8 @@ const validationSchema = Yup.object().shape({
     then: () => Yup.string().required('Required').label('Tenant'),
     // otherwise: () => Yup.string(),
   }),
-  sqft: Yup.number().required('Required').max(10000).label('Sq Ft'),
-  rent: Yup.number().required('Required').max(100000000).label('Price'),
+  sqft: Yup.number().required('Required').max(100000).label('Sq Ft'),
+  rent: Yup.number().required('Required').max(990000000).label('Price'),
   sharingType: Yup.string().when('propertyType', {
     is: val => val === 'PG',
     then: () => Yup.string().required('Required').label('Sharing'),
@@ -140,6 +140,11 @@ const amenities = [
   {key: 13, value: 'Power backup', selected: false},
   {key: 14, value: 'CCTV', selected: false},
   {key: 15, value: 'RO Water', selected: false},
+  {key: 16, value: 'Lift', selected: false},
+  {key: 17, value: 'NA Order clear', selected: false},
+  {key: 18, value: 'Park Facing', selected: false},
+  {key: 19, value: 'On Main Road', selected: false},
+  {key: 20, value: 'Negotiable', selected: false},
 ];
 
 const amenities1 = [
@@ -158,6 +163,11 @@ const amenities1 = [
   {key: 13, value: 'Power backup', selected: false},
   {key: 14, value: 'CCTV', selected: false},
   {key: 15, value: 'RO Water', selected: false},
+  {key: 16, value: 'Lift', selected: false},
+  {key: 17, value: 'NA Order clear', selected: false},
+  {key: 18, value: 'Park Facing', selected: false},
+  {key: 19, value: 'On Main Road', selected: false},
+  {key: 20, value: 'Negotiable', selected: false},
 ];
 
 const AddPropertyScreen = ({route}) => {

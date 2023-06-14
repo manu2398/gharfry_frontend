@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {weight} from '../theme/fonts';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import colors from '../theme/colors';
 
 const PrivacyPolicy = () => {
   return (
@@ -130,19 +131,23 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: colors.black,
   },
   sectionHeading: {
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 10,
     marginBottom: 10,
+    color: colors.black,
   },
   text: {
     fontSize: 16,
     marginBottom: 10,
+    color: colors.black,
   },
   boldText: {
     fontWeight: 'bold',
+    color: colors.black,
   },
 });
 

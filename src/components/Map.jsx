@@ -5,10 +5,12 @@ import MapView, {Circle, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from './Marker';
 import colors from '../theme/colors';
 import CardHorizontal from './CardHorizontal';
+import {useLocationContext} from '../context/CurrentLocationContext';
 
 const Map = ({properties, mapRef, initialRegion, itPark}) => {
   const [activeIndex, setActiveIndex] = useState(-1);
   const {auth, filter} = useSelector(state => state);
+  const {location} = useLocationContext();
 
   const handlePress = idx => {
     if (Platform.OS === 'ios') {
@@ -20,6 +22,19 @@ const Map = ({properties, mapRef, initialRegion, itPark}) => {
       });
     }
     setActiveIndex(idx);
+  };
+
+  const defaultInitialRegion = {
+    latitude:
+      !location || location === 'notGranted'
+        ? 30.744958966516066
+        : location?.coords.latitude,
+    longitude:
+      !location || location === 'notGranted'
+        ? 76.81056978447793
+        : location?.coords.longitude,
+    latitudeDelta: 0.4,
+    longitudeDelta: 0.4,
   };
 
   const handleMapPress = () => {
@@ -58,7 +73,7 @@ const Map = ({properties, mapRef, initialRegion, itPark}) => {
         style={styles.map}
         provider={PROVIDER_GOOGLE}
         onPress={handleMapPress}
-        initialRegion={initialRegion ? initialRegion : undefined}
+        initialRegion={initialRegion ? initialRegion : defaultInitialRegion}
         minZoomLevel={Math.round(
           14 - Math.log2(filter?.distance || 1000 / 500),
         )}

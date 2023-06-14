@@ -1,4 +1,4 @@
-import {Alert, PermissionsAndroid, Platform} from 'react-native';
+import {PermissionsAndroid, Platform} from 'react-native';
 import {createContext, useContext, useEffect, useState} from 'react';
 import Geolocation from 'react-native-geolocation-service';
 
@@ -15,7 +15,7 @@ export const CurreLocationContextProvider = ({children}) => {
           {
             title: 'Location Access Permission',
             message:
-              'ItRentz wants to access your current location' +
+              'Gharfry wants to access your current location' +
               ' so it can put you on a map.',
             buttonNeutral: 'Ask Me Later',
             buttonNegative: 'Cancel',

@@ -2,7 +2,7 @@ import {getDataApi, postDataApi, patchDataApi} from '../../utils/fetchData';
 import {imageUpload} from '../../utils/imageUpload';
 import {TYPES} from './authReducer';
 import {FAV_TYPES} from './favoriteReducer';
-import {NOTIFICATION_TYPES, createNotification} from './notificationReducer';
+import {createNotification} from './notificationReducer';
 import {PROFILE_TYPES} from './profileReducer';
 
 // TYPES
@@ -231,11 +231,6 @@ export const deleteProperty =
       let text = 'Property has been marked as sold';
 
       dispatch(createNotification({item, auth, text}));
-
-      dispatch({
-        type: 'ALERT',
-        payload: {success: 'Property is Marked as sold'},
-      });
     } catch (err) {
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
       return {error: err.response.data.message};
@@ -267,7 +262,6 @@ export const republishProperty =
         {...newData},
         auth.token,
       );
-      dispatch({type: 'ALERT', payload: {success: 'Property is Repulished'}});
     } catch (err) {
       console.log('raaan', err);
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});

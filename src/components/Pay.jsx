@@ -23,46 +23,45 @@ const Pay = ({title, credits, price}) => {
 
   return (
     <TouchableOpacity
-      onPress={() => {
-        var options = {
-          description: 'Buying credits',
-          image: 'https://i.imgur.com/3g7nmJC.png',
-          currency: 'INR',
-          key: 'rzp_test_bWe4pjYFGxOVVC', // Your api key
-          amount: price * 100,
-          name: ` 💰${credits} - ${title}`,
-          prefill: {
-            email: auth.user.email,
-            name: auth.user.fullname,
-          },
-          theme: {color: '#F37254'},
-        };
-        RazorpayCheckout.open(options)
-          .then(data => {
-            // handle success
-            // alert(`Success: ${data.razorpay_payment_id}`);
-            dispatch(
-              addCredits({
-                currentCredits: auth.user.credits,
-                toBeUsed: credits,
-                auth,
-              }),
-            ).then(() => {
-              dispatch({
-                type: TYPES.ALERT,
-                payload: {success: 'Credits are added successfully.'},
-              });
-            });
-          })
-          .catch(error => {
-            // handle failure
-            console.log(error.code);
-            if (error.code === 0) alert(`Payment was cancelled!`);
-          });
-      }}
+      // onPress={() => {
+      //   var options = {
+      //     description: 'Buying credits',
+      //     image: 'https://i.imgur.com/3g7nmJC.png',
+      //     currency: 'INR',
+      //     key: 'rzp_test_bWe4pjYFGxOVVC', // Your api key
+      //     amount: price * 100,
+      //     name: ` 💰${credits} - ${title}`,
+      //     prefill: {
+      //       email: auth.user.email,
+      //       name: auth.user.fullname,
+      //     },
+      //     theme: {color: '#F37254'},
+      //   };
+      //   RazorpayCheckout.open(options)
+      //     .then(data => {
+      //       // handle success
+      //       // alert(`Success: ${data.razorpay_payment_id}`);
+      //       dispatch(
+      //         addCredits({
+      //           currentCredits: auth.user.credits,
+      //           toBeUsed: credits,
+      //           auth,
+      //         }),
+      //       ).then(() => {
+      //         dispatch({
+      //           type: TYPES.ALERT,
+      //           payload: {success: 'Credits are added successfully.'},
+      //         });
+      //       });
+      //     })
+      //     .catch(error => {
+      //       // handle failure
+      //       console.log(error.code);
+      //       if (error.code === 0) alert(`Payment was cancelled!`);
+      //     });
+      // }}
 
-      // onPress={handlePress}
-    >
+      onPress={handlePress}>
       <View
         style={[
           styles.payTile,

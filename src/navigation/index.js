@@ -14,13 +14,11 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import {size} from '../theme/fonts';
 import {TYPES} from '../redux/reducers/filterReducer';
 import SplashScreen from '../screens/SplashScreen';
-import {useLocationContext} from '../context/CurrentLocationContext';
 
 const RootNavigation = () => {
   const netInfo = useNetInfo();
   const {auth, splash} = useSelector(state => state);
   const dispatch = useDispatch();
-  const {location} = useLocationContext();
 
   useEffect(() => {
     if (netInfo.isConnected && netInfo.isInternetReachable) {
@@ -55,7 +53,7 @@ const RootNavigation = () => {
     );
   }
 
-  if (auth.token === undefined || splash?.loading || !location) {
+  if (auth.token === undefined || splash?.loading) {
     return <SplashScreen />;
   }
 

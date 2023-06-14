@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, useRef} from 'react';
 import {StyleSheet, Text, View, FlatList, Image, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Screen from '../components/Screen';
@@ -107,8 +107,10 @@ const ChatScreen = ({route}) => {
   const [refresh, setRefresh] = useState(false);
   const [load, setLoad] = useState(false);
   const {theme} = useTheme();
+  const flatListRef = useRef();
 
   useEffect(() => {
+    flatListRef?.current?.scrollToOffset({offset: 0});
     if (route.params) {
       dispatch(addItem({item: route.params.data, message}));
     }
@@ -194,6 +196,7 @@ const ChatScreen = ({route}) => {
       </Text>
       <View style={styles.container}>
         <FlatList
+          ref={flatListRef}
           data={message.items}
           keyExtractor={(item, idx) => item.conversation || idx.toString()}
           renderItem={renderChatItem}

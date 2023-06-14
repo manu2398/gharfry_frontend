@@ -146,7 +146,6 @@ const SearchScreen = ({route}) => {
               onEndReached={handleLoadMore}
               onEndReachedThreshold={0.5}
             />
-
             {load && <CommonLoader />}
           </>
         );
@@ -166,6 +165,7 @@ const SearchScreen = ({route}) => {
                 <Text style={{color: theme.secondaryTextColor}}>
                   Define your search more specifically.
                 </Text>
+                {load && <CommonLoader />}
               </>
             ) : (
               <>
@@ -182,6 +182,7 @@ const SearchScreen = ({route}) => {
                     Search your landmark above
                   </Text>
                 </View>
+                {load && <CommonLoader />}
               </>
             )}
           </View>
