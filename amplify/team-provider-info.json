@@ -1,0 +1,20 @@
+{
+  "staging": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-rentz-staging-150558-authRole",
+      "UnauthRoleArn": "arn:aws:iam::916084287385:role/amplify-rentz-staging-150558-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::916084287385:role/amplify-rentz-staging-150558-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-rentz-staging-150558-deployment",
+      "UnauthRoleName": "amplify-rentz-staging-150558-unauthRole",
+      "StackName": "amplify-rentz-staging-150558",
+      "StackId": "arn:aws:cloudformation:ap-south-1:916084287385:stack/amplify-rentz-staging-150558/10c22e00-bf55-11ed-933b-02910a581e68",
+      "AmplifyAppId": "d29az5s16ocwcb"
+    },
+    "categories": {
+      "auth": {
+        "Rentz": {}
+      }
+    }
+  }
+}
