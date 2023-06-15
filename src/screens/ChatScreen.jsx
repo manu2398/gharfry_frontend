@@ -149,6 +149,7 @@ const ChatScreen = ({route}) => {
             cvDate: item.createdAt,
             blocked: item?.blocked,
             blockedId: item?.blocked_by,
+            userId: item.propertyId.userId._id,
           });
         }
       });
@@ -176,41 +177,41 @@ const ChatScreen = ({route}) => {
     return <CustomLoader />;
   }
 
-  if (message.items.length === 0) {
-    return (
-      <View style={[styles.noChat, {backgroundColor: theme.backgroundColor}]}>
-        <Lottie
-          source={require('../assets/animations/noChat.json')}
-          autoPlay
-          style={{width: '50%', aspectRatio: 1}}
-        />
-        <Text style={{color: theme.secondaryTextColor}}>No Chats yet!</Text>
-      </View>
-    );
-  }
-
   return (
     <Screen>
       <Text style={[styles.heading, {color: theme.secondaryTextColor}]}>
         Recent Conversations
       </Text>
+
       <View style={styles.container}>
-        <FlatList
-          ref={flatListRef}
-          data={message.items}
-          keyExtractor={(item, idx) => item.conversation || idx.toString()}
-          renderItem={renderChatItem}
-          contentContainerStyle={styles.chatList}
-          ItemSeparatorComponent={() => (
-            <View
-              style={[styles.separator, {backgroundColor: theme.borderColor}]}
+        {message.items.length === 0 ? (
+          <View
+            style={[styles.noChat, {backgroundColor: theme.backgroundColor}]}>
+            <Lottie
+              source={require('../assets/animations/noChat.json')}
+              autoPlay
+              style={{width: '50%', aspectRatio: 1}}
             />
-          )}
-          onRefresh={() => dispatch(getConversations({auth}))}
-          refreshing={refresh}
-          showsVerticalScrollIndicator={false}
-          onEndReached={handleLoadMore}
-        />
+            <Text style={{color: theme.secondaryTextColor}}>No Chats yet!</Text>
+          </View>
+        ) : (
+          <FlatList
+            ref={flatListRef}
+            data={message.items}
+            keyExtractor={(item, idx) => item.conversation || idx.toString()}
+            renderItem={renderChatItem}
+            contentContainerStyle={styles.chatList}
+            ItemSeparatorComponent={() => (
+              <View
+                style={[styles.separator, {backgroundColor: theme.borderColor}]}
+              />
+            )}
+            onRefresh={() => dispatch(getConversations({auth}))}
+            refreshing={refresh}
+            showsVerticalScrollIndicator={false}
+            onEndReached={handleLoadMore}
+          />
+        )}
       </View>
       {load && <CommonLoader />}
     </Screen>

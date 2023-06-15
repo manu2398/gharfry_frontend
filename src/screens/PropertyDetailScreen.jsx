@@ -172,7 +172,7 @@ const PropertyDetailScreen = ({route}) => {
                   ]}>
                   Listed: {formattedTimeStamp(item.createdAt)}
                 </Text>
-                {auth.user._id === item.userId._id && item.propertyActive && (
+                {auth.user._id === item.userId?._id && item.propertyActive && (
                   <Text
                     style={[
                       styles.listedText,

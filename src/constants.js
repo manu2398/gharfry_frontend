@@ -1,4 +1,4 @@
-import {Dimensions, Platform, StatusBar} from 'react-native';
+import {Dimensions, Platform} from 'react-native';
 
 const LIST_MARGIN = 10;
 const width = Dimensions.get('screen').width - LIST_MARGIN * 2;

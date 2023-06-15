@@ -67,6 +67,7 @@ export const getConversations =
               cvDate: item.createdAt,
               blocked: item?.blocked,
               blockedId: item?.blocked_by,
+              pUserId: item.propertyId.userId._id,
             });
           }
         });

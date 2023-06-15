@@ -76,7 +76,7 @@ const ChatDetailScreen = ({route}) => {
       );
     };
 
-    navigation.addListener('focus', () => getMessagesData());
+    getMessagesData();
   }, [item._id, item.conversation, dispatch, auth]);
 
   const handleMessage = () => {
@@ -88,6 +88,7 @@ const ChatDetailScreen = ({route}) => {
       image: item.image,
       receiverHasRead: false,
       conversationId: item.conversation || undefined,
+      pUserId: item._id,
     };
 
     dispatch(addMessage({msg, auth, socket}));

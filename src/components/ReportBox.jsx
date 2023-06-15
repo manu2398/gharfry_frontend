@@ -44,7 +44,7 @@ const ReportBox = ({cvId}) => {
   return (
     <View style={[styles.container, {backgroundColor: theme.backgroundColor}]}>
       <Text style={[styles.heading, {color: theme.secondaryTextColor}]}>
-        Block User
+        Block Chat
       </Text>
       <Text style={{marginVertical: 20, color: theme.secondaryTextColor}}>
         Are you sure you want to block this user? You won't be able to chat with
