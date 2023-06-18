@@ -7,7 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Screen from '../components/Screen';
 import {useDispatch, useSelector} from 'react-redux';
 
@@ -154,6 +154,7 @@ const NotificationScreen = () => {
             </Text>
           </Pressable>
         </Row>
+        {notify.loading && <CommonLoader />}
         <FlatList
           data={notify.notifications}
           keyExtractor={item => Math.floor(Math.random() * 100000)}

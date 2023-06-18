@@ -53,7 +53,7 @@ const CardHomeInfo = ({item, width}) => {
 
             <Text
               style={{fontWeight: weight.bold, color: theme.primaryTextColor}}>
-              PID: {item.pid}
+              UID: {item.pid}
             </Text>
           </Row>
         </>

@@ -12,13 +12,17 @@ export const NOTIFICATION_TYPES = {
   UNREAD_NOTIFIES: 'UNREAD_NOTIFIES',
   DELETE_ALL: 'DELETE_ALL',
   NOTIFY_PAGINATION: 'NOTIFY_PAGINATION',
+  NOTIFY_LOADING: 'NOTIFY_LOADING',
 };
 
 export const getNotifications =
   ({auth}) =>
   async dispatch => {
     try {
-      dispatch({type: 'ALERT', payload: {loading: true}});
+      dispatch({
+        type: NOTIFICATION_TYPES.NOTIFY_LOADING,
+        payload: {loading: true},
+      });
       const res = await getDataApi('notification', auth.token);
 
       const res1 = await getDataApi('unread-notify', auth.token);
@@ -32,7 +36,10 @@ export const getNotifications =
         payload: res1.data.unreadNotifies,
       });
 
-      dispatch({type: 'ALERT', payload: {loading: false}});
+      dispatch({
+        type: NOTIFICATION_TYPES.NOTIFY_LOADING,
+        payload: {loading: false},
+      });
     } catch (err) {
       console.log(err);
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
@@ -86,6 +93,7 @@ const initialState = {
   count: 0,
   firstLoad: false,
   unreadNotifications: [],
+  loading: false,
 };
 const notificationReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -97,6 +105,12 @@ const notificationReducer = (state = initialState, action) => {
         total: 10,
         count: action.payload.count,
         page: 2,
+      };
+
+    case NOTIFICATION_TYPES.NOTIFY_LOADING:
+      return {
+        ...state,
+        loading: action.payload.loading,
       };
 
     case NOTIFICATION_TYPES.LOGOUT_NOTIFY:

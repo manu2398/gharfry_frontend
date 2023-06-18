@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   Pressable,
   ScrollView,
@@ -15,7 +16,11 @@ import Row from '../components/Row';
 import {useNavigation} from '@react-navigation/native';
 import ButtonList from '../components/ButtonList';
 import {useDispatch, useSelector} from 'react-redux';
-import {accountScreenVerification, logout} from '../redux/reducers/authReducer';
+import {
+  accountScreenVerification,
+  deleteUser,
+  logout,
+} from '../redux/reducers/authReducer';
 import CommonLoader from '../components/CommonLoader';
 import {useState} from 'react';
 import BottomSheetModal from '../components/BottomSheet';
@@ -86,6 +91,10 @@ const AccountScreen = () => {
       onPress: () => handleEditProfile(),
     },
     {
+      label: 'Delete Account',
+      onPress: () => handleDeleteUser(),
+    },
+    {
       label: 'Logout',
       onPress: () => handleLogout(),
     },
@@ -93,6 +102,20 @@ const AccountScreen = () => {
 
   const handleLogout = async () => {
     dispatch(logout(auth));
+  };
+
+  const handleDeleteUser = async () => {
+    Alert.alert(
+      'Delete Account',
+      'Are you sure you want to delete your account? All your properties, conversations and credits will be deleted permanently',
+      [
+        {
+          text: 'Yes',
+          onPress: () => dispatch(deleteUser(auth)),
+        },
+        {text: 'No'},
+      ],
+    );
   };
 
   const handleEditProfile = () => {

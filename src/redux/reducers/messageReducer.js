@@ -1,6 +1,7 @@
 import {getDataApi, patchDataApi, postDataApi} from '../../utils/fetchData';
 
 export const MESS_TYPE = {
+  MESS_LOADING: 'MESS_LOADING',
   ADD_ITEM: 'ADD_ITEM',
   ADD_MESSAGE: 'ADD_MESSAGE',
   GET_CONVERSATION: 'GET_CONVERSATION',
@@ -41,7 +42,7 @@ export const getConversations =
   ({auth}) =>
   async dispatch => {
     try {
-      dispatch({type: MESS_TYPE.LOADING, payload: {loading: true}});
+      dispatch({type: MESS_TYPE.MESS_LOADING, payload: {loading: true}});
       const res = await getDataApi('conversations', auth.token);
       const res1 = await getDataApi('unread-messages', auth.token);
 
@@ -76,7 +77,7 @@ export const getConversations =
         type: MESS_TYPE.GET_CONVERSATION,
         payload: {newArr, count: res.data.count, page: 2, total: 10},
       });
-      dispatch({type: MESS_TYPE.LOADING, payload: {loading: false}});
+      dispatch({type: MESS_TYPE.MESS_LOADING, payload: {loading: false}});
     } catch (err) {
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
     }
@@ -86,7 +87,7 @@ export const getMessages =
   ({auth, id, conversationId}) =>
   async dispatch => {
     try {
-      dispatch({type: 'ALERT', payload: {loading: true}});
+      dispatch({type: MESS_TYPE.MESS_LOADING, payload: {loading: true}});
 
       const res = await getDataApi(`message/${id}`, auth.token);
 
@@ -100,7 +101,7 @@ export const getMessages =
 
       await patchDataApi(`message-update/${conversationId}`, null, auth.token);
 
-      dispatch({type: 'ALERT', payload: {loading: false}});
+      dispatch({type: MESS_TYPE.MESS_LOADING, payload: {loading: false}});
     } catch (err) {
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
     }
@@ -109,7 +110,6 @@ export const getMessages =
 export const blockUserConversation =
   ({auth, cvId, value}) =>
   async dispatch => {
-    console.log(value);
     try {
       await patchDataApi(`block-user/${cvId}`, null, auth.token);
 
@@ -143,7 +143,7 @@ const messageReducer = (state = initialState, action) => {
         items: [action.payload, ...state.items],
       };
 
-    case MESS_TYPE.LOADING:
+    case MESS_TYPE.MESS_LOADING:
       return {
         ...state,
         loading: action.payload.loading,

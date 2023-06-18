@@ -457,7 +457,7 @@ const AddPropertyScreen = ({route}) => {
             <>
               <AppTextInput
                 placeholder="Ex. 123 Main St, Mohali, Punjab"
-                label="Complete address"
+                label="Address or Project Name"
                 name="address"
               />
 

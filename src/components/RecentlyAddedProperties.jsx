@@ -638,7 +638,8 @@ const RecentlyAddedProperties = () => {
           style={{color: theme.info, marginTop: 14}}
         />
         <Text style={[styles.heading, {color: theme.secondaryTextColor}]}>
-          Recently Added {location === 'notGranted' ? `` : `near you`}
+          Recently Added{' '}
+          {!location || location === 'notGranted' ? `` : `near you`}
         </Text>
       </Row>
       {recentProps.loading ? (

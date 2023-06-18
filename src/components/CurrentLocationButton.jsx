@@ -79,17 +79,16 @@ const CurrentLocationButton = () => {
             </TouchableOpacity>
           </Row>
         ) : !location ? (
-          <Row>
+          <TouchableOpacity onPress={requestLocationAccessAsync}>
             <Text
               style={{
                 marginHorizontal: 3,
                 fontWeight: weight.thin,
                 color: theme.secondaryTextColor,
               }}>
-              Trying to get Current Location
+              Location access not granted
             </Text>
-            <ActivityIndicator size="small" style={{marginLeft: 10}} />
-          </Row>
+          </TouchableOpacity>
         ) : (
           <TouchableOpacity onPress={requestLocationAccessAsync}>
             <Text style={[styles.text, {color: theme.info}]}>

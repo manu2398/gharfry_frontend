@@ -638,7 +638,7 @@ const TrendingProperties = () => {
           style={{color: theme.info, marginTop: 25}}
         />
         <Text style={[styles.heading, {color: theme.secondaryTextColor}]}>
-          Most Viewed {location === 'notGranted' ? `` : `near you`}
+          Most Viewed {!location || location === 'notGranted' ? `` : `near you`}
         </Text>
       </Row>
       {trendingProps.loading ? (

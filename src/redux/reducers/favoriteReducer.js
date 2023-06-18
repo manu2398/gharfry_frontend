@@ -2,6 +2,7 @@ import {getDataApi} from '../../utils/fetchData';
 
 //TYPES
 export const FAV_TYPES = {
+  FAV_LOADING: 'FAV_LOADING',
   GET_FAV: 'GET_FAV',
   UPDATE_FAV: 'UPDATE_FAV',
   ADD: 'ADD',
@@ -15,13 +16,14 @@ export const getFav =
   ({auth}) =>
   async dispatch => {
     try {
-      dispatch({type: 'ALERT', payload: {loading: true}});
+      dispatch({type: FAV_TYPES.FAV_LOADING, payload: {loading: true}});
+
       const res = await getDataApi('savedPosts', auth.token);
       dispatch({
         type: FAV_TYPES.GET_FAV,
         payload: res.data,
       });
-      dispatch({type: 'ALERT', payload: {loading: false}});
+      dispatch({type: FAV_TYPES.FAV_LOADING, payload: {loading: false}});
     } catch (err) {
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
     }
@@ -30,6 +32,7 @@ export const getFav =
 // REDUCER
 
 const initialState = {
+  loading: false,
   firstLoad: false,
   fav: [],
   page: 2,
@@ -46,6 +49,12 @@ const savedPostReducer = (state = initialState, action) => {
         total: action.payload.total,
         firstLoad: true,
         page: 2,
+      };
+
+    case FAV_TYPES.FAV_LOADING:
+      return {
+        ...state,
+        loading: action.payload.loading,
       };
 
     case FAV_TYPES.UPDATE_FAV:

@@ -14,6 +14,7 @@ import savedPostReducer from './favoriteReducer';
 import recentPostsReducer from './recentlyAddedReducer';
 import trendingPostsReducer from './trendingPropertiesReducer';
 import notificationReducer from './notificationReducer';
+import getNearestReducer from './getNearestReducer';
 
 export default combineReducers({
   alert: alertReducer,
@@ -31,4 +32,5 @@ export default combineReducers({
   recentProps: recentPostsReducer,
   trendingProps: trendingPostsReducer,
   notify: notificationReducer,
+  getNearest: getNearestReducer,
 });

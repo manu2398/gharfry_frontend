@@ -54,7 +54,7 @@ export const notificationListener = () => {
         );
         setTimeout(() => {
           NavigationService?.navigate(remoteMessage.data.type); // e.g. "Settings"
-        }, 2000);
+        }, 3000);
       }
     });
 

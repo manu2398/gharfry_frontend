@@ -1,3 +1,4 @@
+import {getHospitals} from '../../../services/location';
 import {getDataApi, postDataApi, patchDataApi} from '../../utils/fetchData';
 import {imageUpload} from '../../utils/imageUpload';
 import {TYPES} from './authReducer';
@@ -38,7 +39,7 @@ export const createPost = (data, auth) => async dispatch => {
       payload: res.data.property,
     });
 
-    let text = 'Your property is now live';
+    let text = 'Your property is in review. We will notify once it is live.';
 
     const item = res.data.property;
 
@@ -76,10 +77,10 @@ export const getPropertyDetails =
   async dispatch => {
     if (detailPost.every(post => post._id !== id)) {
       try {
-        dispatch({type: 'ALERT', payload: {loading: true}});
+        // dispatch({type: 'ALERT', payload: {loading: true}});
         const res = await getDataApi(`get-single-property/${id}`, auth.token);
         dispatch({type: PROPERTY_TYPES.GET_POST, payload: res.data.property});
-        dispatch({type: 'ALERT', payload: {}});
+        // dispatch({type: 'ALERT', payload: {}});
       } catch (err) {
         dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
         return {error: err.response.data.message};
@@ -159,8 +160,6 @@ export const unlikeProperty =
         ...item,
         likes: item.likes.filter(id => id !== auth.user._id),
       };
-
-      console.log(newData);
       dispatch({
         type: PROPERTY_TYPES.UPDATE_POST,
         payload: newData,

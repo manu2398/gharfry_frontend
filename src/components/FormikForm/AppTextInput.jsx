@@ -27,7 +27,7 @@ const AppTextInput = ({label, name, width, ...otherProps}) => {
       {label && (
         <Text
           style={{
-            marginTop: 10,
+            marginBottom: 10,
             fontWeight: weight.bold,
             color: theme.secondaryTextColor,
             marginBottom: 4,

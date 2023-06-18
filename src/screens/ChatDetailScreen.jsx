@@ -97,10 +97,6 @@ const ChatDetailScreen = ({route}) => {
     Keyboard.dismiss();
   };
 
-  if (message.loading) {
-    return <CommonLoader />;
-  }
-
   return (
     <>
       <KeyboardAvoidingView
@@ -151,6 +147,7 @@ const ChatDetailScreen = ({route}) => {
             </View>
           ))}
         </ScrollView>
+        {message.loading && <CommonLoader />}
         <TouchableOpacity
           onPress={() =>
             navigation.navigate('PropertyDetailScreen', {id: item.id})

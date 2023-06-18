@@ -1,4 +1,9 @@
-import {getDataApi, patchDataApi, postDataApi} from '../../utils/fetchData';
+import {
+  deleteDataApi,
+  getDataApi,
+  patchDataApi,
+  postDataApi,
+} from '../../utils/fetchData';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {PROPERTY_TYPES} from './propertyReducer';
 import {MESS_TYPE} from './messageReducer';
@@ -225,6 +230,34 @@ export const addCredits =
       return {error: err.response.data.message};
     }
   };
+
+export const deleteUser = auth => async dispatch => {
+  try {
+    dispatch({type: 'ALERT', payload: {loading: true}});
+    const res = await deleteDataApi('delete-user', auth.token);
+    if (res.data.success) {
+      await AsyncStorage.clear();
+      dispatch({type: 'AUTH', payload: {token: null}});
+      dispatch({
+        type: PROPERTY_TYPES.GET_PROPERTY_IN_RADIUS,
+        payload: {result: []},
+      });
+
+      dispatch({
+        type: PROFILE_TYPES.REMOVE_ID,
+        payload: [],
+      });
+
+      dispatch({type: MESS_TYPE.LOGOUT_CONVERSATIONS, payload: null});
+      dispatch({type: NOTIFICATION_TYPES.LOGOUT_NOTIFY, payload: null});
+      dispatch({type: FAV_TYPES.LOGOUT, payload: {}});
+
+      dispatch({type: 'ALERT', payload: {success: res.data.message}});
+    }
+  } catch (err) {
+    dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
+  }
+};
 
 //reducer
 

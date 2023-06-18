@@ -36,6 +36,7 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
 
   useEffect(() => {
     const newData = profile.users.filter(item => item._id === id);
+    setUserData(newData);
 
     profile.userProperties.forEach(item => {
       if (item._id === id) {
@@ -44,7 +45,6 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
         setCount(item.count);
       }
     });
-    setUserData(newData);
   }, [id, profile.userProperties, profile.users, setPage, setCount]);
 
   const handleEditProfile = () => {
@@ -64,6 +64,7 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
 
     return (
       <Pressable
+        disabled={!property.reviewed}
         style={[
           styles.container,
           {borderColor: theme.borderColor, borderWidth: 0.5, borderRadius: 5},
@@ -84,6 +85,7 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
               },
               !imageLoad && styles.hiddenImage,
             ]}
+            blurRadius={property.reviewed ? 0 : 35}
             resizeMode="contain"
             onLoad={handleImageLoad}
           />
@@ -111,6 +113,14 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
             />
           </Row>
         </View>
+
+        {!property.reviewed && (
+          <View style={styles.reviewedContainer}>
+            <Text style={{fontWeight: weight.bold, color: 'white'}}>
+              IN REVIEW
+            </Text>
+          </View>
+        )}
 
         {!property.propertyActive && (
           <View style={styles.soldContainer}>
@@ -250,6 +260,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 10,
     right: 10,
+    backgroundColor: colors.accent,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+  },
+  reviewedContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
     backgroundColor: colors.accent,
     paddingHorizontal: 10,
     paddingVertical: 5,

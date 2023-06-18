@@ -33,3 +33,42 @@ export const getItParks = async city => {
     return null;
   }
 };
+
+export const getHospitals = async ({latitude, longitude}) => {
+  try {
+    const res = await axios.get(
+      `${endPoint}/api/nearbyHospitals/${latitude}/${longitude}`,
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const getSchools = async ({latitude, longitude}) => {
+  try {
+    const res = await axios.get(
+      `${endPoint}/api/nearbySchools/${latitude}/${longitude}`,
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const getMalls = async ({latitude, longitude}) => {
+  try {
+    const res = await axios.get(
+      `${endPoint}/api/nearbyMalls/${latitude}/${longitude}`,
+    );
+
+    return res.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};

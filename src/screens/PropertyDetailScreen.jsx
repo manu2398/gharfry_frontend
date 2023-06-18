@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 import Screen from '../components/Screen';
-import Carousel from '../components/Carousel';
+import Carousel from '../components/Carousel.android';
 import CardUpper from '../components/CardUpper';
 
 import colors from '../theme/colors';
@@ -40,6 +40,7 @@ import BottomSheetModal from '../components/BottomSheet';
 import PayBox from '../components/PayBox';
 import {useTheme} from '../context/ThemeProvider';
 import moment from 'moment';
+import {getNearest} from '../redux/reducers/getNearestReducer';
 
 const PropertyDetailScreen = ({route}) => {
   const {theme} = useTheme();
@@ -82,6 +83,25 @@ const PropertyDetailScreen = ({route}) => {
       if (p?._id) setAlreadyInChat(true);
     }
   }, [property[0]?._id]);
+
+  useEffect(() => {
+    if (property[0]?._id) {
+      navigation.addListener('focus', () =>
+        dispatch(
+          getNearest({
+            latitude: property[0].latitude,
+            longitude: property[0].longitude,
+          }),
+        ),
+      );
+      dispatch(
+        getNearest({
+          latitude: property[0].latitude,
+          longitude: property[0].longitude,
+        }),
+      );
+    }
+  }, [property[0]]);
 
   const handleCloseModal = () => {
     setIsModalOpen(false);

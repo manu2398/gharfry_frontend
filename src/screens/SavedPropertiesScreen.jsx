@@ -46,6 +46,7 @@ const SavedPropertiesScreen = () => {
         <Text style={[styles.heading, {color: theme.secondaryTextColor}]}>
           Favorite Properties
         </Text>
+        {fav.loading && <CommonLoader />}
         {fav.fav.length > 0 ? (
           <View style={{flex: 1, marginTop: 20}}>
             <FlatList

@@ -39,8 +39,6 @@ export const updateProfileUser = (auth, data) => async dispatch => {
     let media;
     dispatch({type: 'ALERT', payload: true});
 
-    console.log(data);
-
     dispatch({
       type: 'AUTH',
       payload: {

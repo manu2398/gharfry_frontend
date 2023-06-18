@@ -7,6 +7,7 @@ import {
   Text,
   useWindowDimensions,
   View,
+  Share,
 } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import Feather from 'react-native-vector-icons/Feather';
@@ -26,6 +27,7 @@ import CommonLoader from './CommonLoader';
 import {updateCredits} from '../redux/reducers/authReducer';
 import BottomSheetModal from './BottomSheet';
 import PayBox from './PayBox';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const Carousel = ({item, cards}) => {
   const {width} = useWindowDimensions();
@@ -101,6 +103,53 @@ const Carousel = ({item, cards}) => {
     );
   };
 
+  const handleShare = async item => {
+    try {
+      const link = await generateDynamicLink(item);
+      const shareOptions = {
+        title: 'Gharfry',
+        message: `Gharfry, Check out this property: ${item.address}\nType: ${
+          item.propertyType
+        }\nPrice: ₹${item.rent.toLocaleString('en-IN')}\nUID: ${
+          item.pid
+        }\n${link}`,
+      };
+
+      console.log(shareOptions);
+
+      const result = await Share.share(shareOptions);
+      console.log(result.action); // Check the sharing action (shared, dismissed, etc.)
+      if (result.activityType) {
+        console.log(result.activityType); // Check the activity type (Facebook, Twitter, etc.)
+      }
+    } catch (error) {
+      console.log('Error sharing:', error.message);
+    }
+  };
+
+  const generateDynamicLink = async item => {
+    console.log(item._id);
+    try {
+      let link = await dynamicLinks().buildShortLink(
+        {
+          link: `https://gharfryapp.page.link/Tbeh?id=${item._id}`,
+          domainUriPrefix: 'https://gharfryapp.page.link',
+          android: {
+            packageName: 'com.testapp',
+          },
+          navigation: {
+            forcedRedirectEnabled: true,
+          },
+        },
+        dynamicLinks.ShortLinkType.DEFAULT,
+      );
+
+      return link;
+    } catch (error) {
+      console.log('error>>>', error);
+    }
+  };
+
   return (
     <View>
       {/* Carousel images */}
@@ -161,7 +210,7 @@ const Carousel = ({item, cards}) => {
       )}
 
       {/* Carousel Icons */}
-      {!cards && (
+      {!cards && item.reviewed && (
         <Row style={styles.carouselIconsContainer}>
           {auth.user._id === item.userId?._id && (
             <>
@@ -200,9 +249,7 @@ const Carousel = ({item, cards}) => {
               size={24}
               color={colors.black}
               style={styles.carouselIcon}
-              onPress={() => {
-                // Share logic here
-              }}
+              onPress={() => handleShare(item)}
             />
           )}
         </Row>

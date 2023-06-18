@@ -1,5 +1,19 @@
-import React, {useEffect, useState, useCallback, useRef} from 'react';
-import {StyleSheet, Text, View, FlatList, Image, Pressable} from 'react-native';
+import React, {
+  useEffect,
+  useState,
+  useCallback,
+  useRef,
+  useLayoutEffect,
+} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+  AppState,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Screen from '../components/Screen';
 import {LIST_MARGIN} from '../constants';
@@ -108,6 +122,24 @@ const ChatScreen = ({route}) => {
   const [load, setLoad] = useState(false);
   const {theme} = useTheme();
   const flatListRef = useRef();
+  const [aState, setAppState] = useState(AppState.currentState);
+  useEffect(() => {
+    const appStateListener = AppState.addEventListener(
+      'change',
+      nextAppState => {
+        setAppState(nextAppState);
+      },
+    );
+    return () => {
+      appStateListener?.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (aState === 'active') {
+      dispatch(getConversations({auth}));
+    }
+  }, [aState]);
 
   useEffect(() => {
     flatListRef?.current?.scrollToOffset({offset: 0});
@@ -173,9 +205,9 @@ const ChatScreen = ({route}) => {
     [navigation],
   );
 
-  if (message.loading) {
-    return <CustomLoader />;
-  }
+  // if (message.loading) {
+  //   return <CommonLoader />;
+  // }
 
   return (
     <Screen>
@@ -183,8 +215,10 @@ const ChatScreen = ({route}) => {
         Recent Conversations
       </Text>
 
+      {message.loading && <CommonLoader />}
+
       <View style={styles.container}>
-        {message.items.length === 0 ? (
+        {message.items.length === 0 && !message.loading ? (
           <View
             style={[styles.noChat, {backgroundColor: theme.backgroundColor}]}>
             <Lottie

@@ -62,7 +62,7 @@ const SearchUserScreen = () => {
   return (
     <Screen>
       <Text style={[styles.heading, {color: theme.secondaryTextColor}]}>
-        Search By PID
+        Search By UID
       </Text>
       <View
         style={{
@@ -78,7 +78,7 @@ const SearchUserScreen = () => {
               color: theme.primaryTextColor,
             },
           ]}
-          placeholder="Search property by unique PID"
+          placeholder="Search property by unique ID"
           value={searchTerm}
           selectionColor={colors.primary}
           onChangeText={setSearchTerm}
@@ -95,6 +95,10 @@ const SearchUserScreen = () => {
               borderRadius: 7,
               borderWidth: 1,
               borderColor: theme.borderColor,
+              position: 'absolute',
+              top: 60,
+              width: '100%',
+              marginHorizontal: LIST_MARGIN,
             }}
             onPress={() => handleNavigate(property)}
             key={idx}>
@@ -104,7 +108,7 @@ const SearchUserScreen = () => {
                 style={{width: 40, aspectRatio: 1, borderRadius: 20}}
               />
               <Text style={[styles.name, {color: theme.secondaryTextColor}]}>
-                PID: {property.pid}
+                UID: {property.pid}
               </Text>
 
               <MaterialCommunityIcons
