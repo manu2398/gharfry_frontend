@@ -77,10 +77,10 @@ export const getPropertyDetails =
   async dispatch => {
     if (detailPost.every(post => post._id !== id)) {
       try {
-        // dispatch({type: 'ALERT', payload: {loading: true}});
+        dispatch({type: 'ALERT', payload: {loading: true}});
         const res = await getDataApi(`get-single-property/${id}`, auth.token);
         dispatch({type: PROPERTY_TYPES.GET_POST, payload: res.data.property});
-        // dispatch({type: 'ALERT', payload: {}});
+        dispatch({type: 'ALERT', payload: {}});
       } catch (err) {
         dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
         return {error: err.response.data.message};

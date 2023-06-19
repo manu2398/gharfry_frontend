@@ -11,6 +11,7 @@ import AppTextInput from '../components/FormikForm/AppTextInput';
 import {login} from '../redux/reducers/authReducer';
 import {useDispatch} from 'react-redux';
 import {useTheme} from '../context/ThemeProvider';
+import SocialSignInButtons from '../components/FormikForm/SocialSignInButtons';
 
 const SignInScreen = () => {
   const {theme} = useTheme();
@@ -79,7 +80,7 @@ const SignInScreen = () => {
                 type="TERTIARY"
               />
 
-              {/* <SocialSignInButtons /> */}
+              <SocialSignInButtons />
               <CustomButton
                 title="Don't have an account? Sign Up now"
                 onPress={navigateToRegister}

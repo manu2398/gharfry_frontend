@@ -10,6 +10,7 @@ import {
   FlatList,
   Alert,
   Platform,
+  Linking,
 } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -82,6 +83,7 @@ const PropertyLocationCoords = ({getCoordinates, setGetCoordinates, name}) => {
   const [markerCoords, setMarkerCoords] = useState({lat: null, lng: null});
   const mapRef = useRef();
   const {setFieldValue, errors, setFieldTouched, touched} = useFormikContext();
+  console.log(location);
 
   useEffect(() => {
     if (getCoordinates?.latitude) {
@@ -94,9 +96,13 @@ const PropertyLocationCoords = ({getCoordinates, setGetCoordinates, name}) => {
 
   const requestLocationAccessAsync = () => {
     if (!location || location === 'notGranted') {
-      Alert.alert(
-        "Can't get location, Go to Settings > Gharfry and allow location access.",
-      );
+      Alert.alert('Settings', 'Please allow your location access', [
+        {
+          text: 'Allow',
+          onPress: () => Linking.openSettings(),
+        },
+        {text: 'Cancel'},
+      ]);
       return;
     }
     setLocationName('Current Location');
@@ -244,16 +250,12 @@ const PropertyLocationCoords = ({getCoordinates, setGetCoordinates, name}) => {
             initialRegion={{
               latitude:
                 getCoordinates?.latitude ||
-                !location ||
-                location === 'notGranted'
-                  ? 30.744958966516066
-                  : location?.coords.latitude,
+                location?.coords?.latitude ||
+                30.725695232847386,
               longitude:
                 getCoordinates?.longitude ||
-                !location ||
-                location === 'notGranted'
-                  ? 76.81056978447793
-                  : location?.coords.longitude,
+                location?.coords?.longitude ||
+                76.75398788491377,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}

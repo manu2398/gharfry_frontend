@@ -50,7 +50,6 @@ const RootTabNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Home"
       screenOptions={({route}) => ({
         tabBarIcon: ({color, size}) => {
           let iconName;

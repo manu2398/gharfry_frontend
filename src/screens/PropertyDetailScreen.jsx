@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 import Screen from '../components/Screen';
-import Carousel from '../components/Carousel.android';
+import Carousel from '../components/Carousel';
 import CardUpper from '../components/CardUpper';
 
 import colors from '../theme/colors';
@@ -41,13 +41,14 @@ import PayBox from '../components/PayBox';
 import {useTheme} from '../context/ThemeProvider';
 import moment from 'moment';
 import {getNearest} from '../redux/reducers/getNearestReducer';
+import NearestLocations from '../components/NearestLocations';
 
 const PropertyDetailScreen = ({route}) => {
   const {theme} = useTheme();
 
   const {id} = route.params;
   const [property, setProperty] = useState([]);
-  const {auth, detailPost, suggestedPosts, message} = useSelector(
+  const {auth, detailPost, suggestedPosts, message, nearbyLoc} = useSelector(
     state => state,
   );
   const dispatch = useDispatch();
@@ -290,6 +291,21 @@ const PropertyDetailScreen = ({route}) => {
                   ]}>
                   {item.description}
                 </Text>
+              </View>
+
+              <View style={{marginHorizontal: 20}}>
+                <NearestLocations
+                  title={'Schools'}
+                  icon={'school-outline'}
+                  data={nearbyLoc.nearestSchools}
+                  loading={nearbyLoc.loading}
+                />
+                <NearestLocations
+                  title={'Hospitals'}
+                  icon={'hospital-building'}
+                  data={nearbyLoc.nearestHospitals}
+                  loading={nearbyLoc.loading}
+                />
               </View>
 
               <View style={styles.mapContainer}>

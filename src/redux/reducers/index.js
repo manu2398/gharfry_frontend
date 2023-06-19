@@ -32,5 +32,5 @@ export default combineReducers({
   recentProps: recentPostsReducer,
   trendingProps: trendingPostsReducer,
   notify: notificationReducer,
-  getNearest: getNearestReducer,
+  nearbyLoc: getNearestReducer,
 });

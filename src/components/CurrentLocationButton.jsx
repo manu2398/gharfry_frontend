@@ -1,6 +1,7 @@
 import {
   ActivityIndicator,
   Alert,
+  Linking,
   Pressable,
   StyleSheet,
   Text,
@@ -25,9 +26,13 @@ const CurrentLocationButton = () => {
 
   const requestLocationAccessAsync = async () => {
     if (!location || location === 'notGranted') {
-      Alert.alert(
-        "Can't get location, Go to Settings > Gharfry and allow location access.",
-      );
+      Alert.alert('Settings', 'Please allow your location access', [
+        {
+          text: 'Allow',
+          onPress: () => Linking.openSettings(),
+        },
+        {text: 'Cancel'},
+      ]);
       return;
     }
 
@@ -80,13 +85,8 @@ const CurrentLocationButton = () => {
           </Row>
         ) : !location ? (
           <TouchableOpacity onPress={requestLocationAccessAsync}>
-            <Text
-              style={{
-                marginHorizontal: 3,
-                fontWeight: weight.thin,
-                color: theme.secondaryTextColor,
-              }}>
-              Location access not granted
+            <Text style={[styles.text, {color: theme.info}]}>
+              Use my current location
             </Text>
           </TouchableOpacity>
         ) : (
