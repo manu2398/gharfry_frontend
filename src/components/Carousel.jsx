@@ -27,7 +27,7 @@ import CommonLoader from './CommonLoader';
 import {updateCredits} from '../redux/reducers/authReducer';
 import BottomSheetModal from './BottomSheet';
 import PayBox from './PayBox';
-// import dynamicLinks from '@react-native-firebase/dynamic-links';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const Carousel = ({item, cards}) => {
   const {width} = useWindowDimensions();
@@ -103,49 +103,49 @@ const Carousel = ({item, cards}) => {
     );
   };
 
-  // const handleShare = async item => {
-  //   try {
-  //     const link = await generateDynamicLink(item);
-  //     const shareOptions = {
-  //       title: 'Gharfry',
-  //       message: `Gharfry, Check out this property: ${item.address}\nType: ${
-  //         item.propertyType
-  //       }\nPrice: ₹${item.rent.toLocaleString('en-IN')}\nUID: ${
-  //         item.pid
-  //       }\n${link}`,
-  //     };
+  const handleShare = async item => {
+    try {
+      const link = await generateDynamicLink(item);
+      const shareOptions = {
+        title: 'Gharfry',
+        message: `Gharfry, Check out this property: ${item.address}\nType: ${
+          item.propertyType
+        }\nPrice: ₹${item.rent.toLocaleString('en-IN')}\nUID: ${
+          item.pid
+        }\n${link}`,
+      };
 
-  //     const result = await Share.share(shareOptions);
-  //     console.log(result.action); // Check the sharing action (shared, dismissed, etc.)
-  //     if (result.activityType) {
-  //       console.log(result.activityType); // Check the activity type (Facebook, Twitter, etc.)
-  //     }
-  //   } catch (error) {
-  //     console.log('Error sharing:', error.message);
-  //   }
-  // };
+      const result = await Share.share(shareOptions);
+      console.log(result.action); // Check the sharing action (shared, dismissed, etc.)
+      if (result.activityType) {
+        console.log(result.activityType); // Check the activity type (Facebook, Twitter, etc.)
+      }
+    } catch (error) {
+      console.log('Error sharing:', error.message);
+    }
+  };
 
-  // const generateDynamicLink = async item => {
-  //   try {
-  //     let link = await dynamicLinks().buildShortLink(
-  //       {
-  //         link: `https://gharfryapp.page.link/Tbeh?id=${item._id}`,
-  //         domainUriPrefix: 'https://gharfryapp.page.link',
-  //         android: {
-  //           packageName: 'com.testapp',
-  //         },
-  //         navigation: {
-  //           forcedRedirectEnabled: true,
-  //         },
-  //       },
-  //       dynamicLinks.ShortLinkType.DEFAULT,
-  //     );
+  const generateDynamicLink = async item => {
+    try {
+      let link = await dynamicLinks().buildShortLink(
+        {
+          link: `https://gharfrynew.page.link/H3Ed?id=${item._id}`,
+          domainUriPrefix: 'https://gharfrynew.page.link',
+          android: {
+            packageName: 'com.gharfry',
+          },
+          navigation: {
+            forcedRedirectEnabled: true,
+          },
+        },
+        dynamicLinks.ShortLinkType.DEFAULT,
+      );
 
-  //     return link;
-  //   } catch (error) {
-  //     console.log('error>>>', error);
-  //   }
-  // };
+      return link;
+    } catch (error) {
+      console.log('error>>>', error);
+    }
+  };
 
   return (
     <View>
@@ -246,7 +246,7 @@ const Carousel = ({item, cards}) => {
               size={24}
               color={colors.black}
               style={styles.carouselIcon}
-              onPress={() => {}}
+              onPress={() => handleShare(item)}
             />
           )}
         </Row>

@@ -1,25 +1,22 @@
 import {useNavigation} from '@react-navigation/native';
 import {View, Text} from 'react-native';
 import CustomButton from './CustomButton';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from '@react-native-google-signin/google-signin';
-import {useState} from 'react';
+// import {
+//   GoogleSignin,
+// } from '@react-native-google-signin/google-signin';
 
 const SocialSignInButtons = () => {
   const navigation = useNavigation();
 
   const signUpGoogle = async () => {
-    try {
-      GoogleSignin.configure();
-      await GoogleSignin.hasPlayServices();
-      const user = await GoogleSignin.signIn();
-      console.log(user);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   GoogleSignin.configure();
+    //   await GoogleSignin.hasPlayServices();
+    //   const user = await GoogleSignin.signIn();
+    //   console.log(user);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
 
   const signUpFacebook = () => {

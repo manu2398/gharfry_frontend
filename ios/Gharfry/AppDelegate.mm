@@ -10,7 +10,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GMSServices provideAPIKey:@"AIzaSyCJuxcW2ZTesvRqG3VzSSeHkWNz15wnICQ"];
-  self.moduleName = @"TestApp";
+  self.moduleName = @"Gharfry";
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};

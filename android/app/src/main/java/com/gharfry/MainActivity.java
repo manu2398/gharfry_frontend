@@ -1,4 +1,4 @@
-package com.testapp;
+package com.gharfry;
 
 import android.os.Bundle;
 
@@ -16,7 +16,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "TestApp";
+    return "Gharfry";
   }
 
   /**

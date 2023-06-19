@@ -7,12 +7,21 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:362814688665:android:51be6ebcad8b94d5a3d708",
+        "mobilesdk_app_id": "1:362814688665:android:d2e3a27fba96fc07a3d708",
         "android_client_info": {
-          "package_name": "com.testapp"
+          "package_name": "com.gharfry"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "362814688665-1mq7b1hdkcib0aj7grenhdr6j7t2tqab.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gharfry",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBpVu-3jm6WoRXRT6xWYH2G7VLxRtzz7Uk"

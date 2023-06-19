@@ -13,35 +13,35 @@ import {useEffect} from 'react';
 import {PermissionsAndroid, Platform} from 'react-native';
 import {ThemeProvider} from './src/context/ThemeProvider';
 import NavigationService from './src/navigation/NavigationService';
-// import dynamicLinks from '@react-native-firebase/dynamic-links';
+import dynamicLinks from '@react-native-firebase/dynamic-links';
 
 const App = () => {
   const queryClient = new QueryClient();
 
-  // const handleDynamicLink = link => {
-  //   // Handle dynamic link inside your own application
-  //   let id = link.url.split('=').pop();
-  //   NavigationService.navigate('PropertyDetailScreen', {id});
-  // };
+  const handleDynamicLink = link => {
+    // Handle dynamic link inside your own application
+    let id = link.url.split('=').pop();
+    NavigationService.navigate('PropertyDetailScreen', {id});
+  };
 
-  // useEffect(() => {
-  //   const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
-  //   // When the component is unmounted, remove the listener
-  //   return () => unsubscribe();
-  // }, []);
+  useEffect(() => {
+    const unsubscribe = dynamicLinks().onLink(handleDynamicLink);
+    // When the component is unmounted, remove the listener
+    return () => unsubscribe();
+  }, []);
 
-  // useEffect(() => {
-  //   dynamicLinks()
-  //     .getInitialLink()
-  //     .then(link => {
-  //       if (!!link?.url) {
-  //         let id = link.url.split('=').pop();
-  //         setTimeout(() => {
-  //           NavigationService.navigate('PropertyDetailScreen', {id});
-  //         }, 1000);
-  //       }
-  //     });
-  // }, []);
+  useEffect(() => {
+    dynamicLinks()
+      .getInitialLink()
+      .then(link => {
+        if (!!link?.url) {
+          let id = link.url.split('=').pop();
+          setTimeout(() => {
+            NavigationService.navigate('PropertyDetailScreen', {id});
+          }, 1000);
+        }
+      });
+  }, []);
 
   useEffect(() => {
     if (Platform.OS === 'android') {

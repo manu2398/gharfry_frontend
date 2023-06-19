@@ -1,4 +1,4 @@
-package com.testapp;
+package com.gharfry;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
