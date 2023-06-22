@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {blockUserConversation} from '../redux/reducers/messageReducer';
 import {useTheme} from '../context/ThemeProvider';
+import {postDataApi} from '../utils/fetchData';
 
 const data = [
   {label: 'Spam', value: 1},

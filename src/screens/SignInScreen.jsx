@@ -77,10 +77,11 @@ const SignInScreen = () => {
               <CustomButton
                 title="Forgot Password?"
                 onPress={handleForgotPassword}
-                type="TERTIARY"
+                type="SECONDARY"
+                fgColor="#DD4D44"
               />
-
               <SocialSignInButtons />
+
               <CustomButton
                 title="Don't have an account? Sign Up now"
                 onPress={navigateToRegister}

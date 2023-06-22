@@ -1,35 +1,44 @@
 {
   "project_info": {
-    "project_number": "362814688665",
-    "project_id": "gharfry-b8059",
-    "storage_bucket": "gharfry-b8059.appspot.com"
+    "project_number": "143677054014",
+    "project_id": "gharfry-15dbd",
+    "storage_bucket": "gharfry-15dbd.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:362814688665:android:d2e3a27fba96fc07a3d708",
+        "mobilesdk_app_id": "1:143677054014:android:fe9f599e3407d2593a056f",
         "android_client_info": {
-          "package_name": "com.gharfry"
+          "package_name": "com.shan.gharfry"
         }
       },
       "oauth_client": [
         {
-          "client_id": "362814688665-1mq7b1hdkcib0aj7grenhdr6j7t2tqab.apps.googleusercontent.com",
+          "client_id": "143677054014-t3mud347krc6jn7g7db07qaja7rt6vlv.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.gharfry",
+            "package_name": "com.shan.gharfry",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
+        },
+        {
+          "client_id": "143677054014-d5o7feh61n0rllic1512mjm15jfr9dsl.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBpVu-3jm6WoRXRT6xWYH2G7VLxRtzz7Uk"
+          "current_key": "AIzaSyD_6eLY4wewa7d-x41L-230Hx0MfKLxb-U"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "143677054014-d5o7feh61n0rllic1512mjm15jfr9dsl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

@@ -10,6 +10,7 @@ import {MESS_TYPE} from './messageReducer';
 import {PROFILE_TYPES} from './profileReducer';
 import {FAV_TYPES} from './favoriteReducer';
 import {NOTIFICATION_TYPES, createNotification} from './notificationReducer';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 // TYPES
 export const TYPES = {
@@ -53,6 +54,47 @@ export const register = data => async dispatch => {
   }
 };
 
+export const registerWithGoogle = data => async dispatch => {
+  try {
+    dispatch({type: 'ALERT', payload: {loading: true}});
+    const res = await postDataApi('googleregister', data);
+    await AsyncStorage.setItem('token', res.data.user.token);
+
+    const fcmToken = await AsyncStorage.getItem('fcmToken');
+
+    console.log(fcmToken);
+
+    if (fcmToken) {
+      await postDataApi('pushNotify', {fcmToken, id: res.data.user._id});
+    }
+
+    dispatch({
+      type: 'AUTH',
+      payload: {token: res.data.user.token, user: res.data.user},
+    });
+
+    dispatch({type: 'ALERT', payload: {success: res.data.message}});
+  } catch (err) {
+    console.log(err);
+    dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
+  }
+};
+
+export const loginWithGoogle = data => async dispatch => {
+  try {
+    dispatch({type: 'ALERT', payload: {loading: true}});
+    const res = await postDataApi('googlelogin', data);
+    await AsyncStorage.setItem('token', res.data.user.token);
+    dispatch({
+      type: 'AUTH',
+      payload: {token: res.data.user.token, user: res.data.user},
+    });
+    dispatch({type: 'ALERT', payload: {success: res.data.message}});
+  } catch (err) {
+    dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
+  }
+};
+
 export const accountScreenVerification =
   ({auth}) =>
   async dispatch => {
@@ -80,11 +122,12 @@ export const getMe = () => async dispatch => {
 
   // await AsyncStorage.clear();
 
-  dispatch({type: 'SPLASH', payload: {loading: true}});
   if (token) {
     try {
       const res = await getDataApi('me', token);
       let fcmToken = await AsyncStorage.getItem('fcmToken');
+
+      console.log(fcmToken);
 
       if (fcmToken)
         await patchDataApi(`updateFcm/${res.data.user._id}/${fcmToken}`);
@@ -93,8 +136,6 @@ export const getMe = () => async dispatch => {
         type: 'AUTH',
         payload: {token: res.data.user.token, user: res.data.user},
       });
-
-      dispatch({type: 'SPLASH', payload: {loading: false}});
     } catch (err) {
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
       return err;
@@ -104,13 +145,17 @@ export const getMe = () => async dispatch => {
       type: 'AUTH',
       payload: {token: null},
     });
-    dispatch({type: 'SPLASH', payload: {}});
   }
 };
 
 export const logout = auth => async dispatch => {
   try {
     dispatch({type: 'ALERT', payload: {loading: true}});
+    GoogleSignin.configure({
+      webClientId:
+        '143677054014-d5o7feh61n0rllic1512mjm15jfr9dsl.apps.googleusercontent.com',
+    });
+    await GoogleSignin.signOut();
     await AsyncStorage.removeItem('token');
     // await AsyncStorage.clear();
     const res = await getDataApi('logout', auth.token);
@@ -131,6 +176,7 @@ export const logout = auth => async dispatch => {
 
     dispatch({type: 'ALERT', payload: {success: res.data.message}});
   } catch (err) {
+    console.log(err);
     dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
   }
 };
@@ -234,6 +280,11 @@ export const addCredits =
 export const deleteUser = auth => async dispatch => {
   try {
     dispatch({type: 'ALERT', payload: {loading: true}});
+    GoogleSignin.configure({
+      webClientId:
+        '143677054014-d5o7feh61n0rllic1512mjm15jfr9dsl.apps.googleusercontent.com',
+    });
+    await GoogleSignin.signOut();
     const res = await deleteDataApi('delete-user', auth.token);
     if (res.data.success) {
       await AsyncStorage.clear();
@@ -255,6 +306,7 @@ export const deleteUser = auth => async dispatch => {
       dispatch({type: 'ALERT', payload: {success: res.data.message}});
     }
   } catch (err) {
+    console.log(err);
     dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
   }
 };

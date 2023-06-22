@@ -26,6 +26,7 @@ import {useState} from 'react';
 import BottomSheetModal from '../components/BottomSheet';
 import PayBox from '../components/PayBox';
 import {useTheme} from '../context/ThemeProvider';
+import CustomLoader from '../components/CustomLoader';
 
 const AccountScreen = () => {
   const navigation = useNavigation();
@@ -131,7 +132,6 @@ const AccountScreen = () => {
       <ScrollView>
         <Row style={styles.user}>
           <>
-            {!imageLoad && <CommonLoader />}
             <Image
               source={{
                 uri: auth?.user.avatar,
@@ -145,7 +145,7 @@ const AccountScreen = () => {
               <Text style={[styles.name, {color: theme.primaryTextColor}]}>
                 {auth?.user.fullname}
               </Text>
-              {!auth.user.verified && (
+              {!auth.user.email_verified && (
                 <Pressable
                   onPress={() => {
                     dispatch(accountScreenVerification({auth}));
@@ -176,7 +176,7 @@ const AccountScreen = () => {
               <Octicons
                 name="verified"
                 size={14}
-                color={auth.user.verified ? colors.primary : colors.grey}
+                color={auth.user.email_verified ? colors.primary : colors.grey}
               />
             </Row>
           </View>

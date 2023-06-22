@@ -10,6 +10,7 @@ import {Formik} from 'formik';
 import {useDispatch} from 'react-redux';
 import {register} from '../redux/reducers/authReducer';
 import {useTheme} from '../context/ThemeProvider';
+import SocialSignInButtons from '../components/FormikForm/SocialSignInButtons';
 
 const SignUpScreen = () => {
   const {theme} = useTheme();
@@ -99,7 +100,7 @@ const SignUpScreen = () => {
                 By Signing up, you agree with our T&C and privacy policy.
               </Text>
 
-              {/* <SocialSignInButtons /> */}
+              <SocialSignInButtons signUp={true} />
 
               <CustomButton
                 title="Already have an account? Sign in"

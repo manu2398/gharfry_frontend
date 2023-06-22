@@ -38,7 +38,7 @@ const FryScreen = () => {
           }}
           resizeMode="cover"
           source={require('../assets/background.jpg')}
-          blurRadius={1}>
+          blurRadius={3}>
           <View
             style={{
               height: '100%',

@@ -127,7 +127,7 @@ const RootTabNavigator = () => {
               onPress={handleOpenModal}
               style={{marginRight: 10}}>
               <Row>
-                <Text>💰</Text>
+                <Text style={{color: 'black'}}>💰</Text>
                 <Text
                   style={{
                     color: theme.primaryTextColor,

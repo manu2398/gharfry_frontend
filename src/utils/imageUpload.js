@@ -15,6 +15,8 @@ export const imageUpload = async images => {
     formData.append('file', _image);
     formData.append('upload_preset', 'gsetaohs');
     formData.append('cloud_name', 'dmiu93fth');
+    formData.append('quality', 'auto'); // Add the quality parameter
+    formData.append('fetch_format', 'auto'); // Add the fetch_format parameter
 
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/dmiu93fth/image/upload',

@@ -83,7 +83,6 @@ const PropertyLocationCoords = ({getCoordinates, setGetCoordinates, name}) => {
   const [markerCoords, setMarkerCoords] = useState({lat: null, lng: null});
   const mapRef = useRef();
   const {setFieldValue, errors, setFieldTouched, touched} = useFormikContext();
-  console.log(location);
 
   useEffect(() => {
     if (getCoordinates?.latitude) {

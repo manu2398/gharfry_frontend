@@ -55,7 +55,7 @@ const RootNavigation = () => {
     );
   }
 
-  if (auth.token === undefined || splash?.loading) {
+  if (auth.token === undefined) {
     return <SplashScreen />;
   }
 

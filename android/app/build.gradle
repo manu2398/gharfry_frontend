@@ -95,9 +95,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.gharfry"
+    namespace "com.shan.gharfry"
     defaultConfig {
-        applicationId "com.gharfry"
+        applicationId "com.shan.gharfry"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

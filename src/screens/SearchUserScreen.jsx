@@ -90,7 +90,6 @@ const SearchUserScreen = () => {
         {property.map((property, idx) => (
           <Pressable
             style={{
-              paddingVertical: 10,
               padding: 10,
               borderRadius: 7,
               borderWidth: 1,
@@ -99,6 +98,7 @@ const SearchUserScreen = () => {
               top: 60,
               width: '100%',
               marginHorizontal: LIST_MARGIN,
+              marginTop: 12,
             }}
             onPress={() => handleNavigate(property)}
             key={idx}>

@@ -76,7 +76,7 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
         <>
           {!imageLoad && <CommonLoader />}
           <Image
-            source={{uri: property.images[0].url}}
+            source={{uri: property.images[0]?.url}}
             style={[
               {
                 // height: 200,
@@ -204,7 +204,9 @@ const ProfileList = ({profile, id, dispatch, auth}) => {
                 name="verified"
                 size={14}
                 color={
-                  auth.user.verified ? colors.primary : theme.secondaryTextColor
+                  auth.user.email_verified
+                    ? colors.primary
+                    : theme.secondaryTextColor
                 }
               />
             </Row>

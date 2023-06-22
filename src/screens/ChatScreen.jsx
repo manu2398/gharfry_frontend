@@ -16,6 +16,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Screen from '../components/Screen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {LIST_MARGIN} from '../constants';
 import Row from '../components/Row';
 import {size, weight} from '../theme/fonts';
@@ -30,11 +31,11 @@ import Lottie from 'lottie-react-native';
 import CommonLoader from '../components/CommonLoader';
 import {getDataApi} from '../utils/fetchData';
 import {useTheme} from '../context/ThemeProvider';
-import CustomLoader from '../components/CustomLoader';
 
 const ChatItem = React.memo(({item, onPress}) => {
   const {theme} = useTheme();
   const [imageLoad, setImageLoad] = useState(false);
+  const {auth} = useSelector(state => state);
 
   const handleImageLoad = useCallback(() => {
     setImageLoad(true);
@@ -54,15 +55,32 @@ const ChatItem = React.memo(({item, onPress}) => {
         />
         <View style={styles.body}>
           <Row style={{justifyContent: 'space-between'}}>
-            <Text
-              style={[
-                styles.chatUser,
-                item.blocked
-                  ? {color: colors.accent}
-                  : {color: theme.primaryTextColor},
-              ]}>
-              {item.fullname}
-            </Text>
+            <Row>
+              <Text
+                style={[
+                  styles.chatUser,
+                  item.blocked
+                    ? {color: colors.accent}
+                    : {color: theme.primaryTextColor},
+                ]}>
+                {item.fullname}
+              </Text>
+              {item.pUserId === auth.user._id ? (
+                <MaterialCommunityIcons
+                  size={12}
+                  name="arrow-down-right"
+                  color={theme.secondaryTextColor}
+                  style={{marginLeft: 10}}
+                />
+              ) : (
+                <MaterialCommunityIcons
+                  size={12}
+                  name="arrow-up-right"
+                  color={theme.secondaryTextColor}
+                  style={{marginLeft: 10}}
+                />
+              )}
+            </Row>
             <Text
               style={{
                 color: item.blocked ? colors.accent : theme.secondaryTextColor,
@@ -122,24 +140,26 @@ const ChatScreen = ({route}) => {
   const [load, setLoad] = useState(false);
   const {theme} = useTheme();
   const flatListRef = useRef();
-  const [aState, setAppState] = useState(AppState.currentState);
-  useEffect(() => {
-    const appStateListener = AppState.addEventListener(
-      'change',
-      nextAppState => {
-        setAppState(nextAppState);
-      },
-    );
-    return () => {
-      appStateListener?.remove();
-    };
-  }, []);
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
 
   useEffect(() => {
-    if (aState === 'active') {
-      dispatch(getConversations({auth}));
-    }
-  }, [aState]);
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        dispatch(getConversations({auth}));
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   useEffect(() => {
     flatListRef?.current?.scrollToOffset({offset: 0});

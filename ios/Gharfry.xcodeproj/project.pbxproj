@@ -175,7 +175,6 @@
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
 			name = GharfryTests;
-			productName = GharfryTests;
 			productReference = 00E356EE1AD99517003FC87E /* GharfryTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
@@ -458,7 +457,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gharfry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shan.gharfry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gharfry.app/Gharfry";
 			};
@@ -483,7 +482,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gharfry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shan.gharfry;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Gharfry.app/Gharfry";
 			};
@@ -512,7 +511,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gharfry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shan.gharfry;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.shan.Gharfry;
 				PRODUCT_NAME = Gharfry;
 				SWIFT_OBJC_BRIDGING_HEADER = "Gharfry-Bridging-Header.h";
@@ -544,7 +543,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.gharfry;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shan.gharfry;
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = com.shan.Gharfry;
 				PRODUCT_NAME = Gharfry;
 				SWIFT_OBJC_BRIDGING_HEADER = "Gharfry-Bridging-Header.h";

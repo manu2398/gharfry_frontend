@@ -125,7 +125,7 @@ const PropertyDetailScreen = ({route}) => {
         cvDate: new Date().toISOString(),
       };
 
-      if (!auth.user.verified) {
+      if (!auth.user.email_verified) {
         Alert.alert('Verify Account', 'Please verify your email Id first.', [
           {
             text: 'Verify',

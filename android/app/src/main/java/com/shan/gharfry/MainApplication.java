@@ -1,4 +1,4 @@
-package com.gharfry;
+package com.shan.gharfry;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

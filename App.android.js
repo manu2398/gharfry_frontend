@@ -38,7 +38,7 @@ const App = () => {
           let id = link.url.split('=').pop();
           setTimeout(() => {
             NavigationService.navigate('PropertyDetailScreen', {id});
-          }, 1000);
+          }, 2500);
         }
       });
   }, []);
@@ -49,6 +49,7 @@ const App = () => {
         PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,
       )
         .then(res => {
+          console.log(res);
           if (res === 'granted' || 'never_ask_again') {
             requestUserPermission();
             notificationListener();

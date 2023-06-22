@@ -93,11 +93,11 @@ export const getMessages =
 
       dispatch({type: MESS_TYPE.GET_MESSSAGES, payload: res.data});
 
-      dispatch({type: 'ALERT', payload: {loading: false}});
       dispatch({
         type: MESS_TYPE.UPDATE_UNREAD_MESSAGES,
         payload: conversationId,
       });
+      dispatch({type: MESS_TYPE.MESS_LOADING, payload: {loading: false}});
 
       await patchDataApi(`message-update/${conversationId}`, null, auth.token);
 
@@ -112,11 +112,17 @@ export const blockUserConversation =
   async dispatch => {
     try {
       await patchDataApi(`block-user/${cvId}`, null, auth.token);
-
       dispatch({
         type: MESS_TYPE.UPDATE_BLOCKED,
         payload: {blocked: true, blockedId: auth.user._id, cvId},
       });
+
+      const reportData = {
+        reportedBy: auth.user._id,
+        cvId,
+        reason: value,
+      };
+      await postDataApi(`report`, reportData, auth.token);
     } catch (err) {
       dispatch({type: 'ALERT', payload: {error: err.response.data.message}});
     }
